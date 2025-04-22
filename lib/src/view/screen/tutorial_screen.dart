@@ -18,25 +18,30 @@ class _TutorialScreenState extends State<TutorialScreen> {
       title: 'مرحباً بك في متجرنا',
       description: 'اكتشف أحدث المنتجات والعروض الحصرية',
       imagePath: 'assets/images/welcome.png',
+      backgroundColor: const Color(0xFFFEF9EB),
     ),
     TutorialPage(
       title: 'تصفح المنتجات',
       description: 'تصفح مجموعتنا الواسعة من المنتجات بسهولة',
       imagePath: 'assets/images/browse-products.png',
+      backgroundColor: const Color(0xFFFDFDF4),
     ),
     TutorialPage(
       title: 'أضف إلى السلة',
       description: 'أضف المنتجات المفضلة إلى سلة التسوق الخاصة بك',
       imagePath: 'assets/images/add-to-cart.png',
+      backgroundColor: const Color(0xFFFDFEFD),
     ),
     TutorialPage(
       title: 'تتبع طلباتك',
       description: 'تابع حالة طلباتك في أي وقت',
       imagePath: 'assets/images/follow-order.png',
+      backgroundColor: Colors.white,
     ),
     TutorialPage(
       title: 'ابدأ التسوق',
       description: 'استمتع بتجربة تسوق سهلة وممتعة',
+      backgroundColor: const Color(0xFFFEFAED),
       imagePath: 'assets/images/shop-now.png',
     ),
   ];
@@ -62,6 +67,11 @@ class _TutorialScreenState extends State<TutorialScreen> {
     return Scaffold(
       body: Stack(
         children: [
+          // Animated background
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            color: _tutorialPages[_currentPage].backgroundColor,
+          ),
           PageView.builder(
             controller: _pageController,
             onPageChanged: (int page) {
@@ -104,6 +114,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
                     ),
                     child: Text(
                       _currentPage == _tutorialPages.length - 1
@@ -133,22 +145,40 @@ class _TutorialScreenState extends State<TutorialScreen> {
             fit: BoxFit.contain,
           ),
           const SizedBox(height: 40),
-          Text(
-            page.title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.9),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          Text(
-            page.description,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
+            child: Column(
+              children: [
+                Text(
+                  page.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  page.description,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[700],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
@@ -174,10 +204,12 @@ class TutorialPage {
   final String title;
   final String description;
   final String imagePath;
+  final Color backgroundColor;
 
   TutorialPage({
     required this.title,
     required this.description,
     required this.imagePath,
+    required this.backgroundColor,
   });
 }
