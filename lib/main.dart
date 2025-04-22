@@ -20,6 +20,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const HomeScreen(),
       theme: AppTheme.lightAppTheme,
+      locale: const Locale('ar'),
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child!,
+        );
+      },
     );
   }
 }

@@ -11,10 +11,7 @@ import 'package:e_commerce_flutter/src/model/bottom_nav_bar_item.dart';
 class AppData {
   const AppData._();
 
-  static const String dummyText = 'Lorem Ipsum is simply dummy text of the printing and typesetting'
-      ' industry. Lorem Ipsum has been the industry\'s standard dummy text'
-      ' ever since the 1500s, when an unknown printer took a galley of type'
-      ' and scrambled it to make a type specimen book.';
+  static const String dummyText = 'هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.';
 
   static List<Product> products = [
     Product(
@@ -207,19 +204,19 @@ class AppData {
 
   static List<BottomNavBarItem> bottomNavBarItems = [
     const BottomNavBarItem(
-      "Home",
+      "الرئيسية",
       Icon(Icons.home),
     ),
     const BottomNavBarItem(
-      "Favorite",
+      "المفضلة",
       Icon(Icons.favorite),
     ),
     const BottomNavBarItem(
-      "Cart",
+      "السلة",
       Icon(Icons.shopping_cart),
     ),
     const BottomNavBarItem(
-      "Profile",
+      "الملف الشخصي",
       Icon(Icons.person),
     ),
   ];

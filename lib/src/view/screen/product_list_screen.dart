@@ -79,7 +79,7 @@ class ProductListScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '30% OFF DURING \nCOVID 19',
+                          'خصم 30% خلال \nفترة كورونا',
                           style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                 color: Colors.white,
                               ),
@@ -96,7 +96,7 @@ class ProductListScreen extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            "Get Now",
+                            "اشتر الآن",
                             style: TextStyle(
                               color: AppData.recommendedProducts[index].buttonTextColor!,
                             ),
@@ -127,14 +127,14 @@ class ProductListScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Top categories",
+            "الفئات الرئيسية",
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(foregroundColor: AppColor.darkOrange),
             child: Text(
-              "SEE ALL",
+              "عرض الكل",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Colors.deepOrange.withOpacity(0.7),
                   ),
@@ -168,11 +168,11 @@ class ProductListScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello Sina",
+                  "مرحباً بك",
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 Text(
-                  "Lets gets somethings?",
+                  "ماذا تريد أن تشتري؟",
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 _recommendedProductListView(context),

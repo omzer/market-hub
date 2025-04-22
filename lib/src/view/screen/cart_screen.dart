@@ -14,7 +14,7 @@ class CartScreen extends StatelessWidget {
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
       title: Text(
-        "My cart",
+        "سلة المشتريات",
         style: Theme.of(context).textTheme.displayLarge,
       ),
     );
@@ -152,7 +152,7 @@ class CartScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            "Total",
+            "المجموع",
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
           ),
           Obx(
@@ -183,7 +183,7 @@ class CartScreen extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(20)),
           onPressed: controller.isEmptyCart ? null : () {},
-          child: const Text("Buy Now"),
+          child: const Text("اشتري الآن"),
         ),
       ),
     );

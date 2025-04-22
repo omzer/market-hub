@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
         children: [
           Expanded(child: Image.asset('assets/images/profile_pic.png')),
           const Text(
-            "Hello Sina!",
+            "مرحباً بك!",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
           ),
           Row(
