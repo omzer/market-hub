@@ -64,6 +64,9 @@ class _TutorialScreenState extends State<TutorialScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -81,7 +84,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
             },
             itemCount: _tutorialPages.length,
             itemBuilder: (context, index) {
-              return _buildPage(_tutorialPages[index]);
+              return _buildPage(
+                  _tutorialPages[index], screenHeight, screenWidth);
             },
           ),
           Positioned(
@@ -133,19 +137,30 @@ class _TutorialScreenState extends State<TutorialScreen> {
     );
   }
 
-  Widget _buildPage(TutorialPage page) {
+  Widget _buildPage(
+      TutorialPage page, double screenHeight, double screenWidth) {
+    // Calculate image height based on screen size
+    // Using 40% of screen height for the image
+    final imageHeight = screenHeight * 0.4;
+    // Calculate maximum width to maintain aspect ratio
+    final maxWidth = screenWidth * 0.8;
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            page.imagePath,
-            height: 300,
-            fit: BoxFit.contain,
+          Container(
+            height: imageHeight,
+            width: maxWidth,
+            child: Image.asset(
+              page.imagePath,
+              fit: BoxFit.contain,
+            ),
           ),
           const SizedBox(height: 40),
           Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             child: Column(
               children: [
                 Text(
