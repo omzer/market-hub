@@ -21,6 +21,12 @@ class _TutorialScreenState extends State<TutorialScreen> {
       backgroundColor: const Color(0xFFFEF9EB),
     ),
     TutorialPage(
+      title: 'ابدأ التسوق',
+      description: 'وكأنك موجود في قلب المتجر',
+      backgroundColor: const Color(0xFFFEFAED),
+      imagePath: 'assets/images/shop-now.png',
+    ),
+    TutorialPage(
       title: 'تصفح المنتجات',
       description: 'تصفح مجموعتنا الواسعة من المنتجات بسهولة',
       imagePath: 'assets/images/browse-products.png',
@@ -37,12 +43,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
       description: 'تابع حالة طلباتك في أي وقت',
       imagePath: 'assets/images/follow-order.png',
       backgroundColor: Colors.white,
-    ),
-    TutorialPage(
-      title: 'ابدأ التسوق',
-      description: 'استمتع بتجربة تسوق سهلة وممتعة',
-      backgroundColor: const Color(0xFFFEFAED),
-      imagePath: 'assets/images/shop-now.png',
     ),
   ];
 
@@ -146,18 +146,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
           const SizedBox(height: 40),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
             child: Column(
               children: [
                 Text(
