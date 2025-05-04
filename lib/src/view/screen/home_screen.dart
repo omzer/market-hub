@@ -10,9 +10,7 @@ import 'package:e_commerce_flutter/src/view/animation/page_transition_switcher_w
 import 'package:e_commerce_flutter/src/controller/category_controller.dart';
 
 class HomeScreen extends GetView<CategoryController> {
-  HomeScreen({super.key}) {
-    Get.put(CategoryController());
-  }
+  const HomeScreen({super.key});
 
   static const List<Widget> screens = [
     ProductListScreen(),

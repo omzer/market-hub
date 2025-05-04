@@ -5,6 +5,7 @@ import 'package:e_commerce_flutter/src/view/screen/home_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/tutorial_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
+import 'package:e_commerce_flutter/src/bindings/app_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.touch,
         },
       ),
+      initialBinding: AppBindings(),
       debugShowCheckedModeBanner: false,
       home: tutorialCompleted ? HomeScreen() : const TutorialScreen(),
       theme: AppTheme.lightAppTheme,

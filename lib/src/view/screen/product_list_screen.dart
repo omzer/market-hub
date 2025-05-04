@@ -8,9 +8,7 @@ import 'package:e_commerce_flutter/src/view/widget/list_item_selector.dart';
 
 enum AppbarActionType { leading, trailing }
 
-final ProductController controller = Get.put(ProductController());
-
-class ProductListScreen extends StatelessWidget {
+class ProductListScreen extends GetView<ProductController> {
   const ProductListScreen({super.key});
 
   Widget appBarActionButton(AppbarActionType type) {
@@ -178,8 +176,8 @@ class ProductListScreen extends StatelessWidget {
                 _recommendedProductListView(context),
                 _topCategoriesHeader(context),
                 _topCategoriesListView(),
-                GetBuilder(
-                  builder: (ProductController controller) {
+                GetBuilder<ProductController>(
+                  builder: (controller) {
                     return ProductGridView(
                       items: controller.filteredProducts,
                       likeButtonPressed: (index) => controller.isFavorite(index),
