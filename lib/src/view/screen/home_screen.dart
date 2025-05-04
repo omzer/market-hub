@@ -7,9 +7,9 @@ import 'package:e_commerce_flutter/src/view/screen/profile_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/favorite_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/product_list_screen.dart' hide controller;
 import 'package:e_commerce_flutter/src/view/animation/page_transition_switcher_wrapper.dart';
-import 'package:e_commerce_flutter/src/controller/category_controller.dart';
+import 'package:e_commerce_flutter/src/controller/main_controller.dart';
 
-class HomeScreen extends GetView<CategoryController> {
+class HomeScreen extends GetView<MainController> {
   const HomeScreen({super.key});
 
   static const List<Widget> screens = [
