@@ -20,4 +20,9 @@ class Category {
       isActive: json['is_active'] ?? false,
     );
   }
+
+  @override
+  String toString() {
+    return 'Category{id: $id, name: $name, icon: $icon, isActive: $isActive}';
+  }
 }
