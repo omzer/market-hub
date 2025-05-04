@@ -8,9 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  // final bool tutorialCompleted = prefs.getBool('tutorial_completed') ?? false;
-  final bool tutorialCompleted = false;
-
+  final bool tutorialCompleted = prefs.getBool('tutorial_completed') ?? false;
   runApp(MyApp(tutorialCompleted: tutorialCompleted));
 }
 
