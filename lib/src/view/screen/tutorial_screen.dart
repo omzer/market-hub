@@ -57,7 +57,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
     await prefs.setBool('tutorial_completed', true);
     if (mounted) {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     }
   }

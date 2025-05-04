@@ -26,6 +26,8 @@ class Api extends GetConnect {
     final response = await get('categories/');
     if (response.status.hasError) return [];
 
-    return response.body.map((json) => Category.fromJson(json)).toList();
+    return response.body
+        .map<Category>((json) => Category.fromJson(json))
+        .toList();
   }
 }

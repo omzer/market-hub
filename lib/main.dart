@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         },
       ),
       debugShowCheckedModeBanner: false,
-      home: tutorialCompleted ? const HomeScreen() : const TutorialScreen(),
+      home: tutorialCompleted ? HomeScreen() : const TutorialScreen(),
       theme: AppTheme.lightAppTheme,
       locale: const Locale('ar'),
       builder: (context, child) {
