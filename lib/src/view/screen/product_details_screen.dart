@@ -104,23 +104,25 @@ class ProductDetailsScreen extends StatelessWidget {
             originalPriceSize: 16,
           ),
 
-          const SizedBox(height: 8),
-          Divider(color: AppColors.borderLight, thickness: 1),
-          const SizedBox(height: 8),
-
-          Text(
-            "الوصف",
-            style: theme.textTheme.displaySmall,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            product.description,
-            style: TextStyle(
-              fontSize: 15,
-              height: 1.5,
-              color: AppColors.textPrimary,
+          // Show description section only if a description exists
+          if (product.description.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Divider(color: AppColors.borderLight, thickness: 1),
+            const SizedBox(height: 8),
+            Text(
+              "الوصف",
+              style: theme.textTheme.displaySmall,
             ),
-          ),
+            const SizedBox(height: 8),
+            Text(
+              product.description,
+              style: TextStyle(
+                fontSize: 15,
+                height: 1.5,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
 
           const SizedBox(height: 30),
         ],
