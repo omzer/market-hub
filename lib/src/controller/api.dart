@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/model/category.dart';
+import 'package:e_commerce_flutter/src/model/new_product.dart';
 
 class Api extends GetConnect {
   @override
@@ -28,6 +29,15 @@ class Api extends GetConnect {
 
     return response.body
         .map<Category>((json) => Category.fromJson(json))
+        .toList();
+  }
+
+  Future<List<Product>> getProducts() async {
+    final response = await get('products/');
+    if (response.status.hasError) return [];
+
+    return response.body
+        .map<Product>((json) => Product.fromJson(json))
         .toList();
   }
 }
