@@ -1,25 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_flutter/src/view/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  final VoidCallback? onTap;
-  final VoidCallback? onFavoriteTap;
-  final VoidCallback? onAddToCartTap;
 
   const ProductCard({
     super.key,
     required this.product,
-    this.onTap,
-    this.onFavoriteTap,
-    this.onAddToCartTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => Get.to(() => ProductDetailsScreen(product)),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -52,7 +48,6 @@ class ProductCard extends StatelessWidget {
         _buildProductImage(),
         _buildFavoriteButton(),
         if (product.discountPercentage > 0) _buildDiscountBadge(),
-        if (onAddToCartTap != null) _buildAddToCartButton(),
       ],
     );
   }
@@ -93,7 +88,7 @@ class ProductCard extends StatelessWidget {
       top: 8,
       left: 8,
       child: InkWell(
-        onTap: onFavoriteTap,
+        onTap: () {},
         child: Container(
           padding: const EdgeInsets.all(6),
           decoration: const BoxDecoration(
@@ -126,28 +121,6 @@ class ProductCard extends StatelessWidget {
             color: Colors.black,
             fontSize: 10,
             fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAddToCartButton() {
-    return Positioned(
-      bottom: 8,
-      right: 8,
-      child: InkWell(
-        onTap: onAddToCartTap,
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.deepOrange,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.shopping_cart,
-            color: Colors.white,
-            size: 20,
           ),
         ),
       ),

@@ -22,12 +22,6 @@ class ProductsScreen extends GetView<ProductsController> {
                 return ProductsGrid(
                   products: controller.products,
                   isLoading: controller.isLoading.value,
-                  onProductTap: (product) {
-                    // Navigate to product details screen
-                    Get.to(() => ProductDetailsScreen(product));
-                  },
-                  onFavoriteTap: (product) {},
-                  onAddToCartTap: (product) {},
                 );
               }),
             ),
