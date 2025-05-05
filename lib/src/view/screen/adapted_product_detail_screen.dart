@@ -8,6 +8,7 @@ import 'package:e_commerce_flutter/src/view/widget/product/availability_badge.da
 import 'package:e_commerce_flutter/src/view/widget/product/featured_product_badge.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/add_to_cart_button.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/price_display.dart';
+import 'package:e_commerce_flutter/core/app_colors.dart';
 
 class AdaptedProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -17,11 +18,10 @@ class AdaptedProductDetailScreen extends StatelessWidget {
 
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 0.5,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
-        icon: const Icon(Icons.arrow_back, color: Colors.black),
+        icon: const Icon(Icons.arrow_back),
       ),
       actions: [
         // Favorite icon button
@@ -41,6 +41,8 @@ class AdaptedProductDetailScreen extends StatelessWidget {
   }
 
   Widget _buildProductDetailsSection(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -49,11 +51,7 @@ class AdaptedProductDetailScreen extends StatelessWidget {
           // Product name
           Text(
             product.name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-              color: Colors.black,
-            ),
+            style: theme.textTheme.displayMedium,
           ),
           const SizedBox(height: 12),
 
@@ -65,10 +63,7 @@ class AdaptedProductDetailScreen extends StatelessWidget {
                 Expanded(
                   child: Text(
                     product.categories.map((c) => c.name).join(', '),
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
+                    style: theme.textTheme.headlineSmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -98,16 +93,13 @@ class AdaptedProductDetailScreen extends StatelessWidget {
           const SizedBox(height: 24),
 
           // Divider
-          Divider(color: Colors.grey[200], thickness: 1),
+          Divider(color: AppColors.borderLight, thickness: 1),
           const SizedBox(height: 16),
 
           // Description section
-          const Text(
+          Text(
             "Description",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: theme.textTheme.displaySmall,
           ),
           const SizedBox(height: 8),
           Text(
@@ -115,7 +107,7 @@ class AdaptedProductDetailScreen extends StatelessWidget {
             style: TextStyle(
               fontSize: 15,
               height: 1.5,
-              color: Colors.grey[800],
+              color: AppColors.textPrimary,
             ),
           ),
 
@@ -135,7 +127,6 @@ class AdaptedProductDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       height: 80,
       decoration: BoxDecoration(
-        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -155,7 +146,7 @@ class AdaptedProductDetailScreen extends StatelessWidget {
               Text(
                 "Total Price",
                 style: TextStyle(
-                  color: Colors.grey[600],
+                  color: AppColors.neutralBrown,
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                 ),
@@ -183,7 +174,6 @@ class AdaptedProductDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _appBar(context),
       bottomNavigationBar: _buildBottomBar(),
       body: SingleChildScrollView(

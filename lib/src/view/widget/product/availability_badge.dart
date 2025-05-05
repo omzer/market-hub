@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:e_commerce_flutter/core/app_colors.dart';
 
 class AvailabilityBadge extends StatelessWidget {
   final bool isAvailable;
@@ -12,10 +13,15 @@ class AvailabilityBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final availableColor = AppColors.primaryGreen;
+    final unavailableColor = Colors.red;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: isAvailable ? Colors.green[50] : Colors.red[50],
+        color: isAvailable
+            ? availableColor.withOpacity(0.1)
+            : unavailableColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Row(
@@ -23,7 +29,7 @@ class AvailabilityBadge extends StatelessWidget {
         children: [
           Icon(
             isAvailable ? Icons.check_circle : Icons.cancel,
-            color: isAvailable ? Colors.green : Colors.red,
+            color: isAvailable ? availableColor : unavailableColor,
             size: 16,
           ),
           const SizedBox(width: 4),
@@ -31,7 +37,7 @@ class AvailabilityBadge extends StatelessWidget {
             isAvailable ? "In Stock" : "Out of Stock",
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              color: isAvailable ? Colors.green : Colors.red,
+              color: isAvailable ? availableColor : unavailableColor,
               fontSize: 14,
             ),
           ),

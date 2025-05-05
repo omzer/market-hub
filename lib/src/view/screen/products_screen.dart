@@ -4,6 +4,7 @@ import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/products_grid.dart';
 import 'package:e_commerce_flutter/src/view/screen/adapted_product_detail_screen.dart';
+import 'package:e_commerce_flutter/core/app_colors.dart';
 
 class ProductsScreen extends GetView<ProductsController> {
   const ProductsScreen({super.key});
@@ -11,7 +12,6 @@ class ProductsScreen extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       body: SafeArea(
         child: Column(
@@ -38,26 +38,14 @@ class ProductsScreen extends GetView<ProductsController> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Text(
-        'Products',
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      elevation: 0.5,
+      title: const Text('Products'),
       actions: [
         // Cart icon with badge
         Stack(
           alignment: Alignment.center,
           children: [
             IconButton(
-              icon: const Icon(
-                Icons.shopping_cart,
-                color: Colors.black,
-              ),
+              icon: const Icon(Icons.shopping_cart),
               onPressed: () {
                 // Navigate to cart screen
               },
@@ -69,8 +57,8 @@ class ProductsScreen extends GetView<ProductsController> {
                   right: 8,
                   child: Container(
                     padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
+                    decoration: BoxDecoration(
+                      color: AppColors.accentOrange,
                       shape: BoxShape.circle,
                     ),
                     constraints: const BoxConstraints(
@@ -98,51 +86,22 @@ class ProductsScreen extends GetView<ProductsController> {
       ],
     );
   }
-
-  // Widget _buildSearchBar() {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(16.0),
-  //     child: Container(
-  //       height: 48,
-  //       decoration: BoxDecoration(
-  //         color: Colors.grey[100],
-  //         borderRadius: BorderRadius.circular(12),
-  //       ),
-  //       padding: const EdgeInsets.symmetric(horizontal: 16),
-  //       child: Row(
-  //         children: [
-  //           Icon(Icons.search, color: Colors.grey[600]),
-  //           const SizedBox(width: 12),
-  //           Text(
-  //             'Search products...',
-  //             style: TextStyle(
-  //               color: Colors.grey[600],
-  //               fontSize: 16,
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
 
 class ProductCard extends StatelessWidget {
   final Product product;
 
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      elevation: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -159,7 +118,7 @@ class ProductCard extends StatelessWidget {
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return Container(
-                              color: Colors.grey[200],
+                              color: AppColors.backgroundGrey,
                               child: const Center(
                                 child:
                                     Icon(Icons.image_not_supported, size: 40),
@@ -168,7 +127,7 @@ class ProductCard extends StatelessWidget {
                           },
                         )
                       : Container(
-                          color: Colors.grey[200],
+                          color: AppColors.backgroundGrey,
                           child: const Center(
                             child: Icon(Icons.image_not_supported, size: 40),
                           ),
@@ -185,7 +144,7 @@ class ProductCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: AppColors.accentOrangeDark,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -212,10 +171,7 @@ class ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: theme.textTheme.headlineMedium,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -223,10 +179,7 @@ class ProductCard extends StatelessWidget {
                   if (product.categories.isNotEmpty)
                     Text(
                       product.categories.map((c) => c.name).join(', '),
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                      ),
+                      style: theme.textTheme.headlineSmall,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -235,9 +188,9 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         '\$${product.price}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.deepOrange,
+                          color: AppColors.primaryGreen,
                           fontSize: 16,
                         ),
                       ),
@@ -246,8 +199,8 @@ class ProductCard extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 6),
                           child: Text(
                             '\$${product.discountPrice}',
-                            style: const TextStyle(
-                              color: Colors.grey,
+                            style: TextStyle(
+                              color: Colors.grey[600],
                               decoration: TextDecoration.lineThrough,
                               fontSize: 12,
                             ),
@@ -260,15 +213,18 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Icon(
                         product.isAvailable ? Icons.check_circle : Icons.cancel,
-                        color: product.isAvailable ? Colors.green : Colors.red,
+                        color: product.isAvailable
+                            ? AppColors.primaryGreen
+                            : Colors.red,
                         size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         product.isAvailable ? 'In Stock' : 'Out of Stock',
                         style: TextStyle(
-                          color:
-                              product.isAvailable ? Colors.green : Colors.red,
+                          color: product.isAvailable
+                              ? AppColors.primaryGreen
+                              : Colors.red,
                           fontSize: 12,
                         ),
                       ),

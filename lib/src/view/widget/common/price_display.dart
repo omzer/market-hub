@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:e_commerce_flutter/core/app_colors.dart';
 
 class PriceDisplay extends StatelessWidget {
   final String currentPrice;
   final String? originalPrice;
   final double currentPriceSize;
   final double originalPriceSize;
-  final Color priceColor;
+  final Color? priceColor;
   final bool showCurrency;
   final String currencySymbol;
 
@@ -15,13 +16,15 @@ class PriceDisplay extends StatelessWidget {
     this.originalPrice,
     this.currentPriceSize = 16,
     this.originalPriceSize = 12,
-    this.priceColor = Colors.deepOrange,
+    this.priceColor,
     this.showCurrency = true,
     this.currencySymbol = '\$',
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Color displayPriceColor = priceColor ?? AppColors.primaryGreen;
+
     return Row(
       children: [
         Text(
@@ -29,7 +32,7 @@ class PriceDisplay extends StatelessWidget {
           style: TextStyle(
             fontSize: currentPriceSize,
             fontWeight: FontWeight.bold,
-            color: priceColor,
+            color: displayPriceColor,
           ),
         ),
         if (originalPrice != null && originalPrice!.isNotEmpty) ...[
@@ -39,7 +42,7 @@ class PriceDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: originalPriceSize,
               decoration: TextDecoration.lineThrough,
-              color: Colors.grey,
+              color: Colors.grey[600],
             ),
           ),
         ],

@@ -1,51 +1,80 @@
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 class AppTheme {
   const AppTheme._();
 
   static ThemeData lightAppTheme = ThemeData(
-    primaryColor: const Color(0xFFf16b26),
+    primaryColor: AppColors.primaryGreen,
+    scaffoldBackgroundColor: AppColors.backgroundBeige,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(12),
-        backgroundColor: const Color(0xFFf16b26),
+        backgroundColor: AppColors.primaryGreen,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(foregroundColor: Colors.deepOrange),
+      style: TextButton.styleFrom(foregroundColor: AppColors.accentOrange),
     ),
-    iconTheme: const IconThemeData(color: Color(0xFFA6A3A0)),
-    textTheme: const TextTheme(
+    iconTheme: IconThemeData(color: AppColors.neutralBrown),
+    textTheme: TextTheme(
       displayLarge: TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: AppColors.textPrimary,
       ),
       displayMedium: TextStyle(
         fontSize: 19,
         fontWeight: FontWeight.w500,
-        color: Colors.black,
+        color: AppColors.textPrimary,
       ),
       displaySmall: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w500,
-        color: Colors.black,
+        color: AppColors.textPrimary,
       ),
       headlineMedium: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
-        color: Colors.black,
+        color: AppColors.textPrimary,
       ),
       headlineSmall: TextStyle(fontSize: 15, color: Colors.grey),
       titleLarge: TextStyle(fontSize: 12),
     ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.white,
+      elevation: 0.5,
       centerTitle: true,
+      iconTheme: IconThemeData(color: AppColors.textPrimary),
+      titleTextStyle: TextStyle(
+        color: AppColors.textPrimary,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+    ),
+    colorScheme: ColorScheme.light(
+      primary: AppColors.primaryGreen,
+      secondary: AppColors.accentOrange,
+      surface: AppColors.white,
+      background: AppColors.backgroundBeige,
+      error: Colors.red,
+      onPrimary: AppColors.white,
+      onSecondary: AppColors.textPrimary,
+      onSurface: AppColors.textPrimary,
+      onBackground: AppColors.textPrimary,
+      onError: AppColors.white,
+    ),
+    dividerColor: AppColors.borderLight,
+    cardTheme: CardTheme(
+      color: AppColors.white,
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+        side: BorderSide(color: AppColors.borderLight, width: 0.5),
+      ),
     ),
   );
 }

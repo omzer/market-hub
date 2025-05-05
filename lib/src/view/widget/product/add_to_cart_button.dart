@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AddToCartButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final Color buttonColor;
+  final Color? buttonColor;
   final String text;
   final double height;
   final double width;
@@ -13,7 +13,7 @@ class AddToCartButton extends StatelessWidget {
   const AddToCartButton({
     Key? key,
     required this.onPressed,
-    this.buttonColor = Colors.deepOrange,
+    this.buttonColor,
     this.text = "Add to Cart",
     this.height = 48,
     this.width = 150,
@@ -24,13 +24,16 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color actualButtonColor =
+        buttonColor ?? Theme.of(context).primaryColor;
+
     return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
+          backgroundColor: actualButtonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
