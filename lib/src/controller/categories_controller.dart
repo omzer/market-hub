@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/model/category.dart';
 import 'package:e_commerce_flutter/src/controller/api.dart';
 
-class MainController extends GetxController {
+class CategoriesController extends GetxController {
   final Api _api = Get.put(Api());
 
   RxBool isLoading = false.obs;
