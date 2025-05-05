@@ -6,7 +6,7 @@ class AppTheme {
 
   static ThemeData lightAppTheme = ThemeData(
     primaryColor: AppColors.primaryGreen,
-    scaffoldBackgroundColor: AppColors.backgroundBeige,
+    scaffoldBackgroundColor: AppColors.white,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(12),
@@ -59,7 +59,7 @@ class AppTheme {
       primary: AppColors.primaryGreen,
       secondary: AppColors.accentOrange,
       surface: AppColors.white,
-      background: AppColors.backgroundBeige,
+      background: AppColors.white,
       error: Colors.red,
       onPrimary: AppColors.white,
       onSecondary: AppColors.textPrimary,
