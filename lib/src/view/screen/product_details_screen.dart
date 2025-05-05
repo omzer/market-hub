@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/product_image_gallery.dart';
-import 'package:e_commerce_flutter/src/view/widget/product/product_rating_bar.dart';
-import 'package:e_commerce_flutter/src/view/widget/product/availability_badge.dart';
-import 'package:e_commerce_flutter/src/view/widget/product/featured_product_badge.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/add_to_cart_button.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/price_display.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
@@ -17,11 +14,42 @@ class ProductDetailsScreen extends StatelessWidget {
   ProductDetailsScreen(this.product, {super.key});
 
   PreferredSizeWidget _appBar(BuildContext context) {
+    final availableColor = AppColors.primaryGreen;
+    final unavailableColor = Colors.red;
+
     return AppBar(
       elevation: 0.5,
       leading: IconButton(
         onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.arrow_back),
+      ),
+      title: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        decoration: BoxDecoration(
+          color: product.isAvailable
+              ? availableColor.withOpacity(0.1)
+              : unavailableColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              product.isAvailable ? Icons.check_circle : Icons.cancel,
+              color: product.isAvailable ? availableColor : unavailableColor,
+              size: 16,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              product.isAvailable ? "متوفر في المخزن" : "غير متوفر في المخزن",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: product.isAvailable ? availableColor : unavailableColor,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
       actions: [
         // Favorite icon button
@@ -55,39 +83,25 @@ class ProductDetailsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          // Categories and Rating in a row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (product.categories.isNotEmpty)
-                Expanded(
-                  child: Text(
-                    product.categories.map((c) => c.name).join(', '),
-                    style: theme.textTheme.headlineSmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ProductRatingBar(rating: product.averageRating.toDouble()),
-            ],
-          ),
+          // Categories
+          if (product.categories.isNotEmpty)
+            Text(
+              product.categories.map((c) => c.name).join(', '),
+              style: theme.textTheme.headlineSmall,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           const SizedBox(height: 16),
 
-          // Price and availability
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PriceDisplay(
-                currentPrice: product.discountPercentage > 0
-                    ? product.discountPrice
-                    : product.price,
-                originalPrice:
-                    product.discountPercentage > 0 ? product.price : null,
-                currentPriceSize: 24,
-                originalPriceSize: 16,
-              ),
-              AvailabilityBadge(isAvailable: product.isAvailable),
-            ],
+          // Price only (removed availability badge)
+          PriceDisplay(
+            currentPrice: product.discountPercentage > 0
+                ? product.discountPrice
+                : product.price,
+            originalPrice:
+                product.discountPercentage > 0 ? product.price : null,
+            currentPriceSize: 24,
+            originalPriceSize: 16,
           ),
 
           const SizedBox(height: 24),
@@ -111,11 +125,6 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 24),
-
-          // Featured badge if applicable
-          if (product.featured) const FeaturedProductBadge(),
-
           const SizedBox(height: 30),
         ],
       ),
@@ -125,8 +134,9 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget _buildBottomBar() {
     return Container(
       padding: const EdgeInsets.all(16),
-      height: 80,
+      height: 70,
       decoration: BoxDecoration(
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -151,7 +161,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   fontSize: 13,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 2),
               PriceDisplay(
                 currentPrice: product.discountPercentage > 0
                     ? product.discountPrice
@@ -175,7 +185,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      bottomNavigationBar: _buildBottomBar(),
+      bottomNavigationBar: product.isAvailable ? _buildBottomBar() : null,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

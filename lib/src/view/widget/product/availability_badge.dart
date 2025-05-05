@@ -34,7 +34,7 @@ class AvailabilityBadge extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            isAvailable ? "In Stock" : "Out of Stock",
+            isAvailable ? "متوفر في المخزن" : "غير متوفر في المخزن",
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: isAvailable ? availableColor : unavailableColor,
