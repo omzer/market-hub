@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:e_commerce_flutter/src/controller/main_controller.dart';
+import 'package:e_commerce_flutter/src/controller/categories_controller.dart';
 import 'package:e_commerce_flutter/src/controller/product_controller.dart';
 import 'package:e_commerce_flutter/src/controller/api.dart';
 
@@ -10,7 +10,7 @@ class AppBindings extends Bindings {
     Get.put(Api(), permanent: true);
 
     // Register controllers
-    Get.put(MainController(), permanent: true);
+    Get.put(CategoriesController(), permanent: true);
     Get.put(ProductController(), permanent: true);
   }
 }
