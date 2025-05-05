@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
-import 'package:e_commerce_flutter/src/view/widget/adapted_product_grid_view.dart';
+import 'package:e_commerce_flutter/src/view/widget/product/products_grid.dart';
 import 'package:e_commerce_flutter/src/view/screen/adapted_product_detail_screen.dart';
 
 class ProductsScreen extends GetView<ProductsController> {
@@ -12,110 +12,25 @@ class ProductsScreen extends GetView<ProductsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Products',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0.5,
-        actions: [
-          // Cart icon with badge
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.shopping_cart,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  // Navigate to cart screen
-                },
-              ),
-              Obx(() {
-                if (controller.cartItemCount > 0) {
-                  return Positioned(
-                    top: 8,
-                    right: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      constraints: const BoxConstraints(
-                        minWidth: 16,
-                        minHeight: 16,
-                      ),
-                      child: Text(
-                        '${controller.cartItemCount}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-            ],
-          ),
-          const SizedBox(width: 8),
-        ],
-      ),
+      appBar: _buildAppBar(),
       body: SafeArea(
         child: Column(
           children: [
             // Search bar (commented out for now)
-            // Padding(
-            //   padding: const EdgeInsets.all(16.0),
-            //   child: Container(
-            //     height: 48,
-            //     decoration: BoxDecoration(
-            //       color: Colors.grey[100],
-            //       borderRadius: BorderRadius.circular(12),
-            //     ),
-            //     padding: const EdgeInsets.symmetric(horizontal: 16),
-            //     child: Row(
-            //       children: [
-            //         Icon(Icons.search, color: Colors.grey[600]),
-            //         const SizedBox(width: 12),
-            //         Text(
-            //           'Search products...',
-            //           style: TextStyle(
-            //             color: Colors.grey[600],
-            //             fontSize: 16,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
+            // _buildSearchBar(),
+
             // Product grid
             Expanded(
               child: Obx(() {
-                return AdaptedProductGridView(
+                return ProductsGrid(
                   products: controller.products,
                   isLoading: controller.isLoading.value,
                   onProductTap: (product) {
                     // Navigate to product details screen
                     Get.to(() => AdaptedProductDetailScreen(product));
                   },
-                  onFavoriteTap: (product) {
-                    controller.toggleFavorite(product);
-                  },
-                  onAddToCartTap: (product) {
-                    controller.addToCart(product);
-                  },
+                  onFavoriteTap: (product) {},
+                  onAddToCartTap: (product) {},
                 );
               }),
             ),
@@ -124,6 +39,96 @@ class ProductsScreen extends GetView<ProductsController> {
       ),
     );
   }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      title: const Text(
+        'Products',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.white,
+      elevation: 0.5,
+      actions: [
+        // Cart icon with badge
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                // Navigate to cart screen
+              },
+            ),
+            Obx(() {
+              if (controller.cartItemCount > 0) {
+                return Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 16,
+                      minHeight: 16,
+                    ),
+                    child: Text(
+                      '${controller.cartItemCount}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }),
+          ],
+        ),
+        const SizedBox(width: 8),
+      ],
+    );
+  }
+
+  // Widget _buildSearchBar() {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(16.0),
+  //     child: Container(
+  //       height: 48,
+  //       decoration: BoxDecoration(
+  //         color: Colors.grey[100],
+  //         borderRadius: BorderRadius.circular(12),
+  //       ),
+  //       padding: const EdgeInsets.symmetric(horizontal: 16),
+  //       child: Row(
+  //         children: [
+  //           Icon(Icons.search, color: Colors.grey[600]),
+  //           const SizedBox(width: 12),
+  //           Text(
+  //             'Search products...',
+  //             style: TextStyle(
+  //               color: Colors.grey[600],
+  //               fontSize: 16,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 class ProductCard extends StatelessWidget {
