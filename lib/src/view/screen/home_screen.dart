@@ -12,6 +12,8 @@ class HomeScreen extends GetView<CategoriesController> {
 
   static const List<Widget> screens = [
     ProductsScreen(),
+    Placeholder(),
+    Placeholder(),
     ProfileScreen(),
   ];
 
@@ -58,6 +60,7 @@ class HomeScreen extends GetView<CategoriesController> {
                     ),
                   )
                 : Obx(() => PageTransitionSwitcherWrapper(
+                      duration: const Duration(milliseconds: 300),
                       child: screens[selectedIndex.value],
                     )),
           );
