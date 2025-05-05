@@ -1,78 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:get/get.dart';
+import 'package:e_commerce_flutter/src/controller/products_controller.dart';
+import 'package:e_commerce_flutter/src/model/new_product.dart';
 
-class ProductImageGallery extends StatefulWidget {
-  final List<String> images;
+class ProductImageGallery extends GetView<ProductsController> {
+  final Product product;
   final double height;
   final Color backgroundColor;
 
-  const ProductImageGallery({
+  ProductImageGallery({
     Key? key,
-    required this.images,
+    required this.product,
     this.height = 300,
     this.backgroundColor = const Color(0xFFF5F5F5),
   }) : super(key: key);
 
   @override
-  State<ProductImageGallery> createState() => _ProductImageGalleryState();
-}
-
-class _ProductImageGalleryState extends State<ProductImageGallery> {
-  int _currentIndex = 0;
-  final CarouselController _controller = CarouselController();
-
-  @override
   Widget build(BuildContext context) {
+    // Reset image index when this widget is built with a new product
+    controller.resetImageIndex();
+
+    final List<String> images = product.imagesList;
+
     return Container(
-      height: widget.height,
-      child: widget.images.isNotEmpty
+      height: height,
+      child: images.isNotEmpty
           ? Column(
               children: [
                 Expanded(
                   child: CarouselSlider.builder(
-                    itemCount: widget.images.length,
+                    itemCount: images.length,
                     options: CarouselOptions(
-                      height: widget.height - 40,
+                      height: height - 40,
                       viewportFraction: 1.0,
                       enlargeCenterPage: true,
-                      enableInfiniteScroll: widget.images.length > 1,
-                      autoPlay: widget.images.length > 1,
+                      enableInfiniteScroll: images.length > 1,
+                      autoPlay: images.length > 1,
                       autoPlayInterval: const Duration(seconds: 4),
                       autoPlayAnimationDuration:
                           const Duration(milliseconds: 800),
                       autoPlayCurve: Curves.fastOutSlowIn,
                       onPageChanged: (index, reason) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
+                        controller.currentImageIndex.value = index;
                       },
                     ),
                     itemBuilder: (context, index, realIndex) {
-                      return _buildImageItem(widget.images[index]);
+                      return _buildImageItem(images[index]);
                     },
                   ),
                 ),
-                if (widget.images.length > 1)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: AnimatedSmoothIndicator(
-                      activeIndex: _currentIndex,
-                      count: widget.images.length,
-                      effect: const ExpandingDotsEffect(
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        activeDotColor: Colors.black,
-                        dotColor: Colors.grey,
-                        spacing: 8,
-                      ),
-                      onDotClicked: (index) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                    ),
-                  ),
+                if (images.length > 1)
+                  Obx(() => Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: controller.currentImageIndex.value,
+                          count: images.length,
+                          effect: const ExpandingDotsEffect(
+                            dotHeight: 8,
+                            dotWidth: 8,
+                            activeDotColor: Colors.black,
+                            dotColor: Colors.grey,
+                            spacing: 8,
+                          ),
+                          onDotClicked: (index) {
+                            controller.currentImageIndex.value = index;
+                          },
+                        ),
+                      )),
               ],
             )
           : _buildErrorWidget(),

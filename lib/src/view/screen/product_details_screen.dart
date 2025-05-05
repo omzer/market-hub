@@ -190,7 +190,7 @@ class ProductDetailsScreen extends StatelessWidget {
             // Product image gallery with Hero animation
             Hero(
               tag: 'product-image-${product.id}',
-              child: ProductImageGallery(images: product.imagesList),
+              child: ProductImageGallery(product: product),
             ),
 
             // Product details

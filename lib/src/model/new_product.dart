@@ -10,7 +10,6 @@ class Product {
   final String price;
   final String discountPrice;
   final int discountPercentage;
-  final String images;
   final List<String> imagesList;
   final int averageRating;
   final bool isAvailable;
@@ -24,7 +23,6 @@ class Product {
     required this.price,
     required this.discountPrice,
     required this.discountPercentage,
-    required this.images,
     required this.imagesList,
     required this.averageRating,
     required this.isAvailable,
@@ -44,7 +42,6 @@ class Product {
       price: json['price'] ?? '0.00',
       discountPrice: json['discount_price'] ?? '0.00',
       discountPercentage: json['discount_percentage'] ?? 0,
-      images: json['images'] ?? '',
       imagesList: (json['images_list'] as List?)
               ?.map((image) => image.toString())
               .toList() ??

@@ -9,11 +9,17 @@ class ProductsController extends GetxController {
   RxList<Product> products = <Product>[].obs;
   RxList<Product> favoriteProducts = <Product>[].obs;
   RxList<Product> cartProducts = <Product>[].obs;
+  RxInt currentImageIndex = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchProducts();
+  }
+
+  // Reset the current image index when viewing a new product
+  void resetImageIndex() {
+    currentImageIndex.value = 0;
   }
 
   Future<void> fetchProducts() async {
