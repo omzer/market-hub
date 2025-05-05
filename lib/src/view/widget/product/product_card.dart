@@ -78,8 +78,11 @@ class ProductCard extends StatelessWidget {
                 ),
               )
             : const Center(
-                child: Icon(Icons.image_not_supported,
-                    size: 40, color: Colors.grey),
+                child: Icon(
+                  Icons.image_not_supported,
+                  size: 40,
+                  color: Colors.grey,
+                ),
               ),
       ),
     );
