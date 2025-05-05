@@ -62,15 +62,18 @@ class ProductCard extends StatelessWidget {
       child: Container(
         color: Colors.grey[100],
         child: product.imagesList.isNotEmpty
-            ? Image.network(
-                product.imagesList.first,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child: Icon(Icons.image_not_supported,
-                        size: 40, color: Colors.grey),
-                  );
-                },
+            ? Hero(
+                tag: 'product-image-${product.id}',
+                child: Image.network(
+                  product.imagesList.first,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Icon(Icons.image_not_supported,
+                          size: 40, color: Colors.grey),
+                    );
+                  },
+                ),
               )
             : const Center(
                 child: Icon(Icons.image_not_supported,
