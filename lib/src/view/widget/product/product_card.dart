@@ -119,7 +119,7 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
-          "OFF ${product.discountPercentage}%",
+          "خصم ${product.discountPercentage}%",
           style: const TextStyle(
             color: Colors.black,
             fontSize: 10,
