@@ -78,12 +78,12 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? onAddToCartTap;
 
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
     this.onTap,
     this.onFavoriteTap,
     this.onAddToCartTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
