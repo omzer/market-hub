@@ -11,7 +11,7 @@ class PriceDisplay extends StatelessWidget {
   final String currencySymbol;
 
   const PriceDisplay({
-    Key? key,
+    super.key,
     required this.currentPrice,
     this.originalPrice,
     this.currentPriceSize = 16,
@@ -19,7 +19,7 @@ class PriceDisplay extends StatelessWidget {
     this.priceColor,
     this.showCurrency = true,
     this.currencySymbol = '\$',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
