@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/product_image_gallery.dart';
-import 'package:e_commerce_flutter/src/view/widget/product/add_to_cart_button.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/price_display.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
 
@@ -131,62 +130,26 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomBar() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      height: 70,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, -1),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Total Price",
-                style: TextStyle(
-                  color: AppColors.neutralBrown,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 13,
-                ),
-              ),
-              const SizedBox(height: 2),
-              PriceDisplay(
-                currentPrice: product.discountPercentage > 0
-                    ? product.discountPrice
-                    : product.price,
-                originalPrice:
-                    product.discountPercentage > 0 ? product.price : null,
-                currentPriceSize: 20,
-                originalPriceSize: 16,
-                isAvailable: product.isAvailable,
-              ),
-            ],
-          ),
-          AddToCartButton(
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      bottomNavigationBar: product.isAvailable ? _buildBottomBar() : null,
+      floatingActionButton: product.isAvailable
+          ? FloatingActionButton.extended(
+              onPressed: () {},
+              backgroundColor: AppColors.accentOrange,
+              label: const Text(
+                "أضف إلى السلة",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              icon: const Icon(Icons.shopping_cart),
+              elevation: 4,
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
