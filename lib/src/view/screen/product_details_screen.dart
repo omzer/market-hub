@@ -104,15 +104,12 @@ class ProductDetailsScreen extends StatelessWidget {
             originalPriceSize: 16,
           ),
 
-          const SizedBox(height: 24),
-
-          // Divider
+          const SizedBox(height: 8),
           Divider(color: AppColors.borderLight, thickness: 1),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
 
-          // Description section
           Text(
-            "Description",
+            "الوصف",
             style: theme.textTheme.displaySmall,
           ),
           const SizedBox(height: 8),
