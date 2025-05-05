@@ -68,8 +68,8 @@ class ProductCard extends StatelessWidget {
                 child: Material(
                   type: MaterialType.transparency,
                   child: CachedNetworkImage(
-                    imageUrl: product.imagesList.first,
                     fit: BoxFit.cover,
+                    imageUrl: product.imagesList.first,
                     errorWidget: (context, url, error) => const Center(
                       child: Icon(Icons.image_not_supported,
                           size: 40, color: Colors.grey),
