@@ -16,10 +16,6 @@ class ProductsScreen extends GetView<ProductsController> {
       body: SafeArea(
         child: Column(
           children: [
-            // Search bar (commented out for now)
-            // _buildSearchBar(),
-
-            // Product grid
             Expanded(
               child: Obx(() {
                 return ProductsGrid(
