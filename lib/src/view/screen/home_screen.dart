@@ -5,7 +5,7 @@ import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 import 'package:e_commerce_flutter/src/view/screen/cart_screen.dart' hide controller;
 import 'package:e_commerce_flutter/src/view/screen/profile_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/favorite_screen.dart';
-import 'package:e_commerce_flutter/src/view/screen/product_list_screen.dart' hide controller;
+import 'package:e_commerce_flutter/src/view/screen/products_screen.dart';
 import 'package:e_commerce_flutter/src/view/animation/page_transition_switcher_wrapper.dart';
 import 'package:e_commerce_flutter/src/controller/categories_controller.dart';
 
@@ -13,7 +13,7 @@ class HomeScreen extends GetView<CategoriesController> {
   const HomeScreen({super.key});
 
   static const List<Widget> screens = [
-    ProductListScreen(),
+    ProductsScreen(),
     FavoriteScreen(),
     CartScreen(),
     ProfileScreen(),

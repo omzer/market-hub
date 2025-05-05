@@ -36,7 +36,7 @@ class Api extends GetConnect {
     final response = await get('products/');
     if (response.status.hasError) return [];
 
-    return response.body
+    return response.body['results']
         .map<Product>((json) => Product.fromJson(json))
         .toList();
   }
