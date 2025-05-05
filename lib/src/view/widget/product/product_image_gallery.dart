@@ -35,7 +35,7 @@ class ProductImageGallery extends GetView<ProductsController> {
                     options: CarouselOptions(
                       height: height - 40,
                       viewportFraction: 1.0,
-                      enlargeCenterPage: true,
+                      enlargeCenterPage: false,
                       enableInfiniteScroll: images.length > 1,
                       autoPlay: images.length > 1,
                       autoPlayInterval: const Duration(seconds: 4),

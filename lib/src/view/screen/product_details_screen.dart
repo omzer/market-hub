@@ -192,7 +192,10 @@ class ProductDetailsScreen extends StatelessWidget {
             // Product image gallery with Hero animation
             Hero(
               tag: 'product-image-${product.id}',
-              child: ProductImageGallery(product: product),
+              child: Material(
+                type: MaterialType.transparency,
+                child: ProductImageGallery(product: product),
+              ),
             ),
 
             // Product details

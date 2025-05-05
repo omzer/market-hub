@@ -64,15 +64,18 @@ class ProductCard extends StatelessWidget {
         child: product.imagesList.isNotEmpty
             ? Hero(
                 tag: 'product-image-${product.id}',
-                child: Image.network(
-                  product.imagesList.first,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Center(
-                      child: Icon(Icons.image_not_supported,
-                          size: 40, color: Colors.grey),
-                    );
-                  },
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Image.network(
+                    product.imagesList.first,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(Icons.image_not_supported,
+                            size: 40, color: Colors.grey),
+                      );
+                    },
+                  ),
                 ),
               )
             : const Center(
