@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/products_grid.dart';
-import 'package:e_commerce_flutter/src/view/screen/adapted_product_detail_screen.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
+
+import 'product_details_screen.dart';
 
 class ProductsScreen extends GetView<ProductsController> {
   const ProductsScreen({super.key});
@@ -23,7 +24,7 @@ class ProductsScreen extends GetView<ProductsController> {
                   isLoading: controller.isLoading.value,
                   onProductTap: (product) {
                     // Navigate to product details screen
-                    Get.to(() => AdaptedProductDetailScreen(product));
+                    Get.to(() => ProductDetailsScreen(product));
                   },
                   onFavoriteTap: (product) {},
                   onAddToCartTap: (product) {},

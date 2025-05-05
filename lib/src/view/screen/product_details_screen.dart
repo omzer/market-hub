@@ -10,11 +10,11 @@ import 'package:e_commerce_flutter/src/view/widget/product/add_to_cart_button.da
 import 'package:e_commerce_flutter/src/view/widget/common/price_display.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
 
-class AdaptedProductDetailScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatelessWidget {
   final Product product;
   final ProductsController controller = Get.find<ProductsController>();
 
-  AdaptedProductDetailScreen(this.product, {super.key});
+  ProductDetailsScreen(this.product, {super.key});
 
   PreferredSizeWidget _appBar(BuildContext context) {
     return AppBar(
