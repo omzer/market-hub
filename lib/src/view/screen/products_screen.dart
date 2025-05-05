@@ -188,7 +188,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '\$${product.price}',
+                        '₪${product.price}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.primaryGreen,
@@ -199,7 +199,7 @@ class ProductCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 6),
                           child: Text(
-                            '\$${product.discountPrice}',
+                            '₪${product.discountPrice}',
                             style: TextStyle(
                               color: Colors.grey[600],
                               decoration: TextDecoration.lineThrough,

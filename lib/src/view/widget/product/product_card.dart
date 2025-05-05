@@ -182,20 +182,22 @@ class ProductCard extends StatelessWidget {
   }
 
   Widget _buildPriceInformation() {
+    final Color priceColor =
+        product.isAvailable ? Colors.deepOrange : Colors.grey;
     return Row(
       children: [
         Text(
-          "\$${product.discountPercentage > 0 ? product.discountPrice : product.price}",
-          style: const TextStyle(
+          "₪${product.discountPercentage > 0 ? product.discountPrice : product.price}",
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Colors.deepOrange,
+            color: priceColor,
           ),
         ),
         const SizedBox(width: 4),
         if (product.discountPercentage > 0)
           Text(
-            "\$${product.price}",
+            "₪${product.price}",
             style: const TextStyle(
               fontSize: 12,
               decoration: TextDecoration.lineThrough,

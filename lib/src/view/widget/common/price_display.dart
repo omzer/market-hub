@@ -9,6 +9,7 @@ class PriceDisplay extends StatelessWidget {
   final Color? priceColor;
   final bool showCurrency;
   final String currencySymbol;
+  final bool isAvailable;
 
   const PriceDisplay({
     super.key,
@@ -18,12 +19,14 @@ class PriceDisplay extends StatelessWidget {
     this.originalPriceSize = 12,
     this.priceColor,
     this.showCurrency = true,
-    this.currencySymbol = '\$',
+    this.currencySymbol = '₪',
+    this.isAvailable = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color displayPriceColor = priceColor ?? AppColors.primaryGreen;
+    final Color displayPriceColor =
+        isAvailable ? (priceColor ?? AppColors.primaryGreen) : Colors.grey;
 
     return Row(
       children: [

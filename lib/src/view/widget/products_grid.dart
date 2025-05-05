@@ -221,7 +221,7 @@ class ProductCard extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                '\$${product.price}',
+                                '₪${product.price}',
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.deepOrange,
@@ -230,7 +230,7 @@ class ProductCard extends StatelessWidget {
                               ),
                               if (product.discountPercentage > 0)
                                 Text(
-                                  '\$${product.discountPrice}',
+                                  '₪${product.discountPrice}',
                                   style: const TextStyle(
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,

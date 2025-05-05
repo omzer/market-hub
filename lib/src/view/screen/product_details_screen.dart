@@ -102,6 +102,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 product.discountPercentage > 0 ? product.price : null,
             currentPriceSize: 24,
             originalPriceSize: 16,
+            isAvailable: product.isAvailable,
           ),
 
           // Show description section only if a description exists
@@ -169,6 +170,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     product.discountPercentage > 0 ? product.price : null,
                 currentPriceSize: 20,
                 originalPriceSize: 16,
+                isAvailable: product.isAvailable,
               ),
             ],
           ),
