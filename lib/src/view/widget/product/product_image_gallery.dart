@@ -87,9 +87,27 @@ class ProductImageGallery extends GetView<ProductsController> {
         child: CachedNetworkImage(
           imageUrl: imageUrl,
           fit: BoxFit.contain,
+          placeholder: (context, url) => Container(
+            color: Colors.grey[100],
+            child: Center(
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+                ),
+              ),
+            ),
+          ),
           errorWidget: (context, url, error) {
             return _buildErrorWidget();
           },
+          fadeInDuration: const Duration(milliseconds: 150),
+          fadeOutDuration: const Duration(milliseconds: 150),
+          // Use a unique key for each image to ensure proper caching
+          cacheKey: 'gallery-image-${product.id}-$imageUrl',
+          memCacheWidth: 600, // Larger cache for gallery images
         ),
       ),
     );

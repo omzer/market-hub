@@ -36,6 +36,8 @@ class ProductsGrid extends StatelessWidget {
             _calculateColumnCount(constraints.maxWidth, orientation);
 
         return GridView.builder(
+          // Add caching to GridView
+          cacheExtent: 500, // Cache more items for smoother scrolling
           itemCount: products.length,
           padding: const EdgeInsets.all(16),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -53,8 +55,15 @@ class ProductsGrid extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final product = products[index];
-            return ProductCard(product: product);
+            return ProductCard(
+              key: ValueKey('product-card-${product.id}'),
+              product: product,
+            );
           },
+          // Add keep alive feature directly to the GridView
+          addAutomaticKeepAlives: true,
+          // Add repaint boundaries for better performance
+          addRepaintBoundaries: true,
         );
       },
     );

@@ -15,7 +15,13 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => ProductDetailsScreen(product)),
+      onTap: () => Get.to(
+        () => ProductDetailsScreen(product),
+        transition: Transition.fadeIn,
+        duration: const Duration(milliseconds: 250),
+        preventDuplicates: true,
+        opaque: false,
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -63,12 +69,33 @@ class ProductCard extends StatelessWidget {
                 child: Material(
                   type: MaterialType.transparency,
                   child: CachedNetworkImage(
+                    key: ValueKey('cached-image-${product.id}'),
                     fit: BoxFit.cover,
                     imageUrl: product.imagesList.first,
+                    placeholder: (context, url) => Container(
+                      color: Colors.grey[100],
+                      child: Center(
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.grey[400]!),
+                          ),
+                        ),
+                      ),
+                    ),
                     errorWidget: (context, url, error) => const Center(
                       child: Icon(Icons.image_not_supported,
                           size: 40, color: Colors.grey),
                     ),
+                    fadeInDuration: const Duration(milliseconds: 150),
+                    fadeOutDuration: const Duration(milliseconds: 150),
+                    memCacheWidth:
+                        400, // Use a reasonable width to cache in memory
+                    // Keep image in cache to avoid reload when scrolling
+                    cacheKey: 'product-image-${product.id}',
                   ),
                 ),
               )
@@ -181,5 +208,30 @@ class ProductCard extends StatelessWidget {
           ),
       ],
     );
+  }
+}
+
+// If keep-alive functionality is needed, wrap this widget with AutomaticKeepAlive
+class KeepAliveWrapper extends StatefulWidget {
+  final Widget child;
+
+  const KeepAliveWrapper({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  State<KeepAliveWrapper> createState() => _KeepAliveWrapperState();
+}
+
+class _KeepAliveWrapperState extends State<KeepAliveWrapper>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return widget.child;
   }
 }
