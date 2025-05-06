@@ -3,14 +3,14 @@ import 'dart:ui' show PointerDeviceKind;
 import 'package:e_commerce_flutter/core/app_theme.dart';
 import 'package:e_commerce_flutter/src/view/screen/home_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/tutorial_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/bindings/app_bindings.dart';
+import 'package:e_commerce_flutter/services/prefs_box.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  final bool tutorialCompleted = prefs.getBool('tutorial_completed') ?? false;
+  await PrefsBox.initStorage();
+  final bool tutorialCompleted = PrefsBox.isTutorialCompleted();
   runApp(MyApp(tutorialCompleted: tutorialCompleted));
 }
 

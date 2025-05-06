@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:e_commerce_flutter/src/view/screen/home_screen.dart';
+import 'package:e_commerce_flutter/services/prefs_box.dart';
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({super.key});
@@ -50,16 +50,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  Future<void> _completeTutorial() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('tutorial_completed', true);
-    if (mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    }
   }
 
   @override
@@ -150,7 +140,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: imageHeight,
             width: maxWidth,
             child: Image.asset(
@@ -200,6 +190,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
             : Colors.grey.withOpacity(0.3),
       ),
     );
+  }
+
+  Future<void> _completeTutorial() async {
+    await PrefsBox.setTutorialCompleted();
+    if (mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
   }
 }
 
