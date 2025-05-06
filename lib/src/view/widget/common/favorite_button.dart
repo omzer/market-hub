@@ -1,8 +1,9 @@
-import 'package:e_commerce_flutter/services/prefs_box.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
+import 'package:e_commerce_flutter/src/controller/products_controller.dart';
+import 'package:e_commerce_flutter/src/model/new_product.dart';
 
-class FavoriteButton extends StatefulWidget {
+class FavoriteButton extends GetView<ProductsController> {
   final String productId;
   final double size;
 
@@ -13,74 +14,30 @@ class FavoriteButton extends StatefulWidget {
   });
 
   @override
-  State<FavoriteButton> createState() => _FavoriteButtonState();
-}
-
-class _FavoriteButtonState extends State<FavoriteButton> {
-  bool _isFavorite = false;
-  final GetStorage _box = GetStorage();
-  late VoidCallback _storageListenerDisposer;
-  static const String _favoriteProductIdsKey = 'favorite_product_ids';
-
-  @override
-  void initState() {
-    super.initState();
-    _checkIfFavorite();
-
-    _storageListenerDisposer =
-        PrefsBox.instance.listenKey(_favoriteProductIdsKey, (value) {
-      final List<String> favoriteIds = List<String>.from(value ?? []);
-      final bool currentlyIsFavorite = favoriteIds.contains(widget.productId);
-      if (mounted && _isFavorite != currentlyIsFavorite) {
-        setState(() {
-          _isFavorite = currentlyIsFavorite;
-        });
-      }
-    });
-  }
-
-  void _checkIfFavorite() {
-    final List<dynamic> favoriteIdsDynamic =
-        _box.read<List<dynamic>>(_favoriteProductIdsKey) ?? [];
-    final List<String> favoriteIds = favoriteIdsDynamic.cast<String>();
-    if (mounted) {
-      setState(() => _isFavorite = favoriteIds.contains(widget.productId));
-    }
-  }
-
-  Future<void> _toggleFavorite() async {
-    if (_isFavorite) {
-      await PrefsBox.removeFavoriteProductId(widget.productId);
-    } else {
-      await PrefsBox.addFavoriteProductId(widget.productId);
-    }
-    if (mounted) {
-      setState(() => _isFavorite = !_isFavorite);
-    }
-  }
-
-  @override
-  void dispose() {
-    _storageListenerDisposer();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _toggleFavorite,
-      child: Container(
-        padding: const EdgeInsets.all(6),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: Icon(
-          _isFavorite ? Icons.favorite : Icons.favorite_border,
-          color: Colors.red,
-          size: widget.size,
-        ),
-      ),
+    final Product? product = controller.products.firstWhereOrNull(
+      (p) => p.id == int.tryParse(productId),
     );
+
+    if (product == null) return const SizedBox.shrink();
+
+    return Obx(() {
+      final bool isFavorite = controller.isFavorite(product);
+      return InkWell(
+        onTap: () => controller.toggleFavorite(product),
+        child: Container(
+          padding: const EdgeInsets.all(6),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          child: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: Colors.red,
+            size: size,
+          ),
+        ),
+      );
+    });
   }
 }

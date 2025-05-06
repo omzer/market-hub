@@ -12,7 +12,7 @@ class PrefsBox {
 
   // constants
   static const String _tutorialCompletedKey = 'tutorial_completed';
-  static const String _favoriteProductIdsKey = 'favorite_product_ids';
+  static const String favoriteProductIdsKey = 'favorite_product_ids';
 
   static bool isTutorialCompleted() {
     return _box.read<bool>(_tutorialCompletedKey) ?? false;
@@ -23,12 +23,12 @@ class PrefsBox {
   }
 
   static List<String> getFavoriteProductIds() {
-    return _box.read<List<dynamic>>(_favoriteProductIdsKey)?.cast<String>() ??
+    return _box.read<List<dynamic>>(favoriteProductIdsKey)?.cast<String>() ??
         [];
   }
 
   static Future<void> setFavoriteProductIds(List<String> productIds) async {
-    await _box.write(_favoriteProductIdsKey, productIds);
+    await _box.write(favoriteProductIdsKey, productIds);
   }
 
   static Future<void> addFavoriteProductId(String productId) async {
@@ -44,6 +44,17 @@ class PrefsBox {
     if (favoriteIds.contains(productId)) {
       favoriteIds.remove(productId);
       await setFavoriteProductIds(favoriteIds);
+    }
+  }
+
+  static Future<bool> toggleFavoriteProductId(String productId) async {
+    final List<String> favoriteIds = getFavoriteProductIds();
+    if (favoriteIds.contains(productId)) {
+      await removeFavoriteProductId(productId);
+      return false; // Product was a favorite, now removed
+    } else {
+      await addFavoriteProductId(productId);
+      return true; // Product was not a favorite, now added
     }
   }
 }
