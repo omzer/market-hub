@@ -92,64 +92,33 @@ class ProductImageGallery extends GetView<ProductsController> {
           ),
         );
       },
-      child: Stack(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Hero(
-                tag: 'image-$index',
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  fit: BoxFit.contain,
-                  placeholder: (context, url) => Container(
-                    color: Colors.grey[100],
-                    child: Center(
-                      child: SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
-                        ),
-                      ),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) {
-                    return _buildErrorWidget();
-                  },
-                  fadeInDuration: const Duration(milliseconds: 150),
-                  fadeOutDuration: const Duration(milliseconds: 150),
-                  // Use a unique key for each image to ensure proper caching
-                  cacheKey: 'gallery-image-${product.id}-$imageUrl',
-                  memCacheWidth: 600, // Larger cache for gallery images
+      child: Hero(
+        tag: 'product-image-${product.id}',
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
+          fit: BoxFit.contain,
+          placeholder: (context, url) => Container(
+            color: Colors.grey[100],
+            child: Center(
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
                 ),
               ),
             ),
           ),
-          // Zoom indicator
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Icon(
-                Icons.zoom_in,
-                color: Colors.white,
-                size: 20,
-              ),
-            ),
-          ),
-        ],
+          errorWidget: (context, url, error) {
+            return _buildErrorWidget();
+          },
+          fadeInDuration: const Duration(milliseconds: 150),
+          fadeOutDuration: const Duration(milliseconds: 150),
+          // Use a unique key for each image to ensure proper caching
+          cacheKey: 'gallery-image-${product.id}-$imageUrl',
+          memCacheWidth: 600, // Larger cache for gallery images
+        ),
       ),
     );
   }
