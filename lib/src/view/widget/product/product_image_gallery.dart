@@ -5,18 +5,19 @@ import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
+import 'package:e_commerce_flutter/src/view/widget/product/full_screen_image_viewer.dart';
 
 class ProductImageGallery extends GetView<ProductsController> {
   final Product product;
   final double height;
   final Color backgroundColor;
 
-  ProductImageGallery({
-    Key? key,
+  const ProductImageGallery({
+    super.key,
     required this.product,
     this.height = 300,
     this.backgroundColor = const Color(0xFFF5F5F5),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ProductImageGallery extends GetView<ProductsController> {
 
     final List<String> images = product.imagesList;
 
-    return Container(
+    return SizedBox(
       height: height,
       child: images.isNotEmpty
           ? Column(
@@ -48,7 +49,8 @@ class ProductImageGallery extends GetView<ProductsController> {
                       },
                     ),
                     itemBuilder: (context, index, realIndex) {
-                      return _buildImageItem(images[index]);
+                      return _buildImageItem(
+                          context, images[index], index, images);
                     },
                   ),
                 ),
@@ -76,39 +78,78 @@ class ProductImageGallery extends GetView<ProductsController> {
     );
   }
 
-  Widget _buildImageItem(String imageUrl) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          fit: BoxFit.contain,
-          placeholder: (context, url) => Container(
-            color: Colors.grey[100],
-            child: Center(
-              child: SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+  Widget _buildImageItem(BuildContext context, String imageUrl, int index,
+      List<String> allImages) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FullScreenImageViewer(
+              imageUrls: allImages,
+              initialIndex: index,
+            ),
+          ),
+        );
+      },
+      child: Stack(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Hero(
+                tag: 'image-$index',
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  fit: BoxFit.contain,
+                  placeholder: (context, url) => Container(
+                    color: Colors.grey[100],
+                    child: Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.grey[400]!),
+                        ),
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) {
+                    return _buildErrorWidget();
+                  },
+                  fadeInDuration: const Duration(milliseconds: 150),
+                  fadeOutDuration: const Duration(milliseconds: 150),
+                  // Use a unique key for each image to ensure proper caching
+                  cacheKey: 'gallery-image-${product.id}-$imageUrl',
+                  memCacheWidth: 600, // Larger cache for gallery images
                 ),
               ),
             ),
           ),
-          errorWidget: (context, url, error) {
-            return _buildErrorWidget();
-          },
-          fadeInDuration: const Duration(milliseconds: 150),
-          fadeOutDuration: const Duration(milliseconds: 150),
-          // Use a unique key for each image to ensure proper caching
-          cacheKey: 'gallery-image-${product.id}-$imageUrl',
-          memCacheWidth: 600, // Larger cache for gallery images
-        ),
+          // Zoom indicator
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Icon(
+                Icons.zoom_in,
+                color: Colors.white,
+                size: 20,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

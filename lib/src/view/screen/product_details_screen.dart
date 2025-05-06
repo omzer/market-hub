@@ -154,14 +154,8 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product image gallery with Hero animation
-            Hero(
-              tag: 'product-image-${product.id}',
-              child: Material(
-                type: MaterialType.transparency,
-                child: ProductImageGallery(product: product),
-              ),
-            ),
+            // Product image gallery
+            ProductImageGallery(product: product),
 
             // Product details
             _buildProductDetailsSection(context),
