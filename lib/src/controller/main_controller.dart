@@ -16,7 +16,7 @@ class MainController extends GetxController {
 
     favoriteProductIds.addAll(PrefsBox.getFavoriteProductIds());
     PrefsBox.instance.listenKey(PrefsBox.favoriteProductIdsKey, (value) {
-      print(value);
+      favoriteProductIds.clear();
       favoriteProductIds.addAll(value.cast<String>());
     });
   }
