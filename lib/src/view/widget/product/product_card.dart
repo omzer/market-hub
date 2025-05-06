@@ -3,6 +3,7 @@ import 'package:e_commerce_flutter/src/view/screen/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:get/get.dart';
+import '../common/favorite_button.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -52,7 +53,11 @@ class ProductCard extends StatelessWidget {
     return Stack(
       children: [
         _buildProductImage(),
-        _buildFavoriteButton(),
+        Positioned(
+          top: 8,
+          left: 8,
+          child: FavoriteButton(productId: product.id.toString()),
+        ),
         if (product.discountPercentage > 0) _buildDiscountBadge(),
       ],
     );
@@ -106,28 +111,6 @@ class ProductCard extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
-      ),
-    );
-  }
-
-  Widget _buildFavoriteButton() {
-    return Positioned(
-      top: 8,
-      left: 8,
-      child: InkWell(
-        onTap: () {},
-        child: Container(
-          padding: const EdgeInsets.all(6),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: const Icon(
-            Icons.favorite_border,
-            color: Colors.red,
-            size: 20,
-          ),
-        ),
       ),
     );
   }
@@ -208,30 +191,5 @@ class ProductCard extends StatelessWidget {
           ),
       ],
     );
-  }
-}
-
-// If keep-alive functionality is needed, wrap this widget with AutomaticKeepAlive
-class KeepAliveWrapper extends StatefulWidget {
-  final Widget child;
-
-  const KeepAliveWrapper({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  State<KeepAliveWrapper> createState() => _KeepAliveWrapperState();
-}
-
-class _KeepAliveWrapperState extends State<KeepAliveWrapper>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return widget.child;
   }
 }

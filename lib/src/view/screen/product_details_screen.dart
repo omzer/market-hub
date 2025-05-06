@@ -5,6 +5,7 @@ import 'package:e_commerce_flutter/src/controller/products_controller.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/product_image_gallery.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/price_display.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
+import '../widget/common/favorite_button.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
@@ -52,17 +53,7 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
       actions: [
         // Favorite icon button
-        IconButton(
-          onPressed: () => {},
-          icon: Obx(() {
-            return Icon(
-              controller.isFavorite(product)
-                  ? Icons.favorite
-                  : Icons.favorite_border,
-              color: Colors.red,
-            );
-          }),
-        ),
+        FavoriteButton(productId: product.id.toString(), size: 28.0),
       ],
     );
   }
