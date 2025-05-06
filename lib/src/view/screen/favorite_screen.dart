@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_commerce_flutter/src/controller/main_controller.dart';
+import 'package:e_commerce_flutter/src/controller/favorite_controller.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/products_grid.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/loading_indicator.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/empty_state.dart'; // Assuming you have an EmptyState widget
 
-class FavoriteScreen extends GetView<MainController> {
+class FavoriteScreen extends GetView<FavoriteController> {
   const FavoriteScreen({super.key});
 
   @override

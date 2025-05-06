@@ -7,7 +7,7 @@ import 'package:e_commerce_flutter/src/view/screen/products_screen.dart';
 import 'package:e_commerce_flutter/src/view/animation/page_transition_switcher_wrapper.dart';
 import 'package:e_commerce_flutter/src/controller/categories_controller.dart';
 import 'package:e_commerce_flutter/src/view/screen/favorite_screen.dart';
-import 'package:e_commerce_flutter/src/controller/main_controller.dart';
+import 'package:e_commerce_flutter/src/controller/favorite_controller.dart';
 
 class HomeScreen extends GetView<CategoriesController> {
   const HomeScreen({super.key});
@@ -15,7 +15,8 @@ class HomeScreen extends GetView<CategoriesController> {
   @override
   Widget build(BuildContext context) {
     final RxInt selectedIndex = 0.obs;
-    final MainController mainController = Get.find<MainController>();
+    final FavoriteController favoriteController =
+        Get.find<FavoriteController>();
 
     final List<Widget> screens = [
       const ProductsScreen(),
@@ -33,7 +34,7 @@ class HomeScreen extends GetView<CategoriesController> {
               currentIndex: selectedIndex.value,
               onTap: (index) {
                 selectedIndex.value = index;
-                if (index == 1) mainController.refreshFavorites();
+                if (index == 1) favoriteController.refreshFavorites();
               },
               items: AppData.bottomNavBarItems
                   .map(

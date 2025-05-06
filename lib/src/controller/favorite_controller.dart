@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/controller/api.dart';
 
-class MainController extends GetxController {
+class FavoriteController extends GetxController {
   final Api _api = Get.find<Api>();
 
   final RxSet<String> favoriteProductIds = RxSet<String>();
