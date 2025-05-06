@@ -7,7 +7,6 @@ class ProductsController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxList<Product> products = <Product>[].obs;
-  RxList<Product> favoriteProducts = <Product>[].obs;
   RxList<Product> cartProducts = <Product>[].obs;
   RxInt currentImageIndex = 0.obs;
 
@@ -28,18 +27,6 @@ class ProductsController extends GetxController {
     products.assignAll(result);
 
     isLoading.value = false;
-  }
-
-  void toggleFavorite(Product product) {
-    if (isFavorite(product)) {
-      favoriteProducts.remove(product);
-    } else {
-      favoriteProducts.add(product);
-    }
-  }
-
-  bool isFavorite(Product product) {
-    return favoriteProducts.any((p) => p.id == product.id);
   }
 
   void addToCart(Product product) {

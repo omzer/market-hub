@@ -40,4 +40,19 @@ class Api extends GetConnect {
         .map<Product>((json) => Product.fromJson(json))
         .toList();
   }
+
+  Future<List<Product>> getProductsByIds(List<String> ids) async {
+    if (ids.isEmpty) {
+      return [];
+    }
+    final idsQueryParam = ids.join(',');
+    final response = await get('products/by-ids/?ids=$idsQueryParam');
+    if (response.status.hasError || response.body == null) {
+      return [];
+    }
+
+    return (response.body as List)
+        .map<Product>((json) => Product.fromJson(json))
+        .toList();
+  }
 }

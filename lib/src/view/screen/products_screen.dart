@@ -5,8 +5,6 @@ import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/products_grid.dart';
 import 'package:e_commerce_flutter/core/app_colors.dart';
 
-import 'product_details_screen.dart';
-
 class ProductsScreen extends GetView<ProductsController> {
   const ProductsScreen({super.key});
 

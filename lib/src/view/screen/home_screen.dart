@@ -6,20 +6,23 @@ import 'package:e_commerce_flutter/src/view/screen/profile_screen.dart';
 import 'package:e_commerce_flutter/src/view/screen/products_screen.dart';
 import 'package:e_commerce_flutter/src/view/animation/page_transition_switcher_wrapper.dart';
 import 'package:e_commerce_flutter/src/controller/categories_controller.dart';
+import 'package:e_commerce_flutter/src/view/screen/favorite_screen.dart';
+import 'package:e_commerce_flutter/src/controller/main_controller.dart';
 
 class HomeScreen extends GetView<CategoriesController> {
   const HomeScreen({super.key});
 
-  static const List<Widget> screens = [
-    ProductsScreen(),
-    Placeholder(),
-    Placeholder(),
-    ProfileScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final RxInt selectedIndex = 0.obs;
+    final MainController mainController = Get.find<MainController>();
+
+    final List<Widget> screens = [
+      const ProductsScreen(),
+      const FavoriteScreen(),
+      const Placeholder(),
+      const ProfileScreen(),
+    ];
 
     return Center(
       child: ConstrainedBox(
@@ -30,6 +33,7 @@ class HomeScreen extends GetView<CategoriesController> {
               currentIndex: selectedIndex.value,
               onTap: (index) {
                 selectedIndex.value = index;
+                if (index == 1) mainController.refreshFavorites();
               },
               items: AppData.bottomNavBarItems
                   .map(

@@ -1,9 +1,9 @@
+import 'package:e_commerce_flutter/services/prefs_box.dart';
+import 'package:e_commerce_flutter/src/controller/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_commerce_flutter/src/controller/products_controller.dart';
-import 'package:e_commerce_flutter/src/model/new_product.dart';
 
-class FavoriteButton extends GetView<ProductsController> {
+class FavoriteButton extends GetView<MainController> {
   final String productId;
   final double size;
 
@@ -15,16 +15,10 @@ class FavoriteButton extends GetView<ProductsController> {
 
   @override
   Widget build(BuildContext context) {
-    final Product? product = controller.products.firstWhereOrNull(
-      (p) => p.id == int.tryParse(productId),
-    );
-
-    if (product == null) return const SizedBox.shrink();
-
     return Obx(() {
-      final bool isFavorite = controller.isFavorite(product);
+      final bool isFavorite = controller.favoriteProductIds.contains(productId);
       return InkWell(
-        onTap: () => controller.toggleFavorite(product),
+        onTap: () => PrefsBox.toggleFavoriteProductId(productId),
         child: Container(
           padding: const EdgeInsets.all(6),
           decoration: const BoxDecoration(
@@ -33,8 +27,8 @@ class FavoriteButton extends GetView<ProductsController> {
           ),
           child: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: Colors.red,
             size: size,
+            color: Colors.red,
           ),
         ),
       );

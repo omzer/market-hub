@@ -3,7 +3,6 @@ import 'package:e_commerce_flutter/src/model/new_product.dart';
 import 'package:e_commerce_flutter/src/view/widget/product/product_card.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/loading_indicator.dart';
 import 'package:e_commerce_flutter/src/view/widget/common/empty_state.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<Product> products;
@@ -36,18 +35,15 @@ class ProductsGrid extends StatelessWidget {
             _calculateColumnCount(constraints.maxWidth, orientation);
 
         return GridView.builder(
-          // Add caching to GridView
-          cacheExtent: 500, // Cache more items for smoother scrolling
+          cacheExtent: 500,
           itemCount: products.length,
           padding: const EdgeInsets.all(16),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
-            // Make sure there's enough height for product name and price in both orientations
             childAspectRatio:
                 orientation == Orientation.landscape ? 0.75 : 0.65,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
-            // Use staggered heights in portrait mode only if we have enough space
             mainAxisExtent: (orientation == Orientation.portrait &&
                     constraints.maxHeight > 500)
                 ? _getStaggeredHeight(crossAxisCount, constraints.maxHeight)
@@ -60,18 +56,14 @@ class ProductsGrid extends StatelessWidget {
               product: product,
             );
           },
-          // Add keep alive feature directly to the GridView
           addAutomaticKeepAlives: true,
-          // Add repaint boundaries for better performance
           addRepaintBoundaries: true,
         );
       },
     );
   }
 
-  // Calculate columns based on screen width and orientation
   int _calculateColumnCount(double width, Orientation orientation) {
-    // In landscape, use more columns to make better use of horizontal space
     if (orientation == Orientation.landscape) {
       if (width <= 600) return 2; // Small landscape phones
       if (width <= 960) return 3; // Landscape phones/small tablets
@@ -79,7 +71,6 @@ class ProductsGrid extends StatelessWidget {
       if (width <= 1800) return 5; // Small desktops
       return 6; // Large desktops
     } else {
-      // Portrait orientation
       if (width <= 360) return 1; // Small phones
       if (width <= 600) return 2; // Normal phones
       if (width <= 900) return 3; // Tablets
@@ -88,16 +79,11 @@ class ProductsGrid extends StatelessWidget {
     }
   }
 
-  // Create staggered effect by varying heights based on screen size
   double _getStaggeredHeight(int columnCount, double availableHeight) {
-    // Adjust height based on available screen height to avoid overflow
-    final baseHeight =
-        availableHeight * 0.4; // Use 40% of available height as base
+    final baseHeight = availableHeight * 0.4;
 
-    // On small screens with 1 column, don't apply staggering
     if (columnCount == 1) return baseHeight;
 
-    // Create slight height variations for staggered effect (±5-10%)
     final List<double> heightFactors = [0.95, 1.0, 1.05];
     return baseHeight * heightFactors[columnCount % heightFactors.length];
   }
